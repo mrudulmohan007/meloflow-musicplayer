@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:music_player/constants/colors.dart';
 import 'package:music_player/constants/text_style.dart';
 import 'package:music_player/controllers/player_controller.dart';
+import 'package:music_player/views/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Home extends StatelessWidget {
@@ -78,19 +79,16 @@ class Home extends StatelessWidget {
                         trailing: controller.playIndex.value == index &&
                                 controller.isPlaying.value
                             ? const Icon(
-                                (Icons.pause),
+                                (Icons.play_circle),
                                 color: Color.fromARGB(255, 9, 120, 167),
                               )
-                            : const Icon(
-                                (Icons.play_arrow_rounded),
-                                color: Color.fromARGB(255, 9, 120, 167),
-                              ),
+                            : null,
                         title: Text(
                           snapshot.data![index].displayNameWOExt,
                           style: ourStyle(
-                            // family: 'bold',
+                            family: 'bold',
                             size: 19,
-                            color: Color.fromARGB(172, 240, 240, 240),
+                            color: Colors.white,
                           ),
                         ),
                         subtitle: Text(
@@ -99,6 +97,12 @@ class Home extends StatelessWidget {
                               size: 13.5, color: Colors.green, family: 'bold'),
                         ),
                         onTap: () {
+                          Get.to(
+                            PlayerScreen(
+                              data: snapshot.data!,
+                            ),
+                            transition: Transition.downToUp,
+                          );
                           controller.playSong(snapshot.data![index].uri, index);
                         },
                       ),
