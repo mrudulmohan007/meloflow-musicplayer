@@ -13,6 +13,7 @@ class PlayerController extends GetxController {
   var position = ''.obs;
   var max = 0.0.obs;
   var currentPosition = 0.0.obs;
+  var isPermissionGranted = false.obs;
 
   @override
   void onInit() {
@@ -57,18 +58,19 @@ class PlayerController extends GetxController {
     var permStatus = await Permission.storage.status;
 
     if (permStatus.isDenied || permStatus.isPermanentlyDenied) {
-      // Permission is denied or permanently denied, request it.
-      var requestedStatus = await Permission.storage.request();
-
-      if (requestedStatus.isGranted) {
-        // Permission is granted, proceed with your logic.
-      } else {
-        // Permission is still not granted, handle it accordingly.
-        // You can display an error message or take appropriate actions.
-        // Get.snackbar("Permission Denied", "Please grant storage permission");
+      try {
+        await Permission.storage.request();
+        var requestedStatus = await Permission.storage.status;
+        if (requestedStatus.isGranted) {
+          isPermissionGranted.value = true;
+        } else {
+          await openAppSettings();
+        }
+      } catch (e) {
+        print(e.toString());
       }
-    } else if (permStatus.isGranted) {
-      // Permission is already granted, proceed with your logic.
+    } else {
+      isPermissionGranted.value = true;
     }
   }
 }

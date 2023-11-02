@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:music_player/constants/colors.dart';
 import 'package:music_player/views/home.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
