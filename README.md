@@ -1,4 +1,4 @@
-# music_player-meloflow
+# music_player-meloflow.
 
  Introducing Meloflow: Your Music Companion! 
 I'm excited to share my latest project, Meloflow, a music player app built with Flutter and GetX🚀
